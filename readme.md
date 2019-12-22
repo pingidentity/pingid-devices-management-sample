@@ -10,7 +10,7 @@ note: This version supports only (Hybrid FIDO2 UI with pingone domain) FIDO2 dev
 ### System Requirements / Dependencies
 
 Requires:
- - PingOne account with PingID service enabled (visit [Ping Identity Developer Site] to get a developer account)
+ - PingOne account with PingID service enabled.
  - An existing user.
 
 Libraries & Dependencies:
