@@ -28,6 +28,10 @@ $(document).ready(function() {
         posting.done(function( data ) {
             $( "#redirect" ).html(data);
             $( "#redirectForm" ).submit();
+        })
+        .fail(function( error ) {
+            $("#regErrMsg p").html(error.responseText);
+            $("#regErrMsg").show();
         });
     });
 

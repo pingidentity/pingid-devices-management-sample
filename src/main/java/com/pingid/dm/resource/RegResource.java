@@ -34,10 +34,9 @@ public class RegResource {
         try {
             type = DeviceType.valueOf(deviceType);
         } catch (IllegalArgumentException e) {
-
-            request.setAttribute("errorMsg", "Operation was canceled.");
-            request.setAttribute(Constants.RequestParameter.SENDER, Constants.Common.DEVICES_MGMT);
-            new GetUserDetailsResource().getUserDetails(request, response, userName);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Wrong device type.");
+            response.flushBuffer();
             return;
         }
 
