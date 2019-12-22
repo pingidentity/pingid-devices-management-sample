@@ -33,7 +33,7 @@ mvn clean package
 
 ### Usage
 
-1. Launch the application (i.e. https://localhost:8080/pingid-devices-management-sample).
+1. Launch the application (i.e. http://localhost:8080/pingid-devices-management-sample).
 2. Login with user name.
 3. Add, remove and authenticate operations are available to manage the user's devices. 
 
