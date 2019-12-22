@@ -36,6 +36,10 @@ public enum DeviceType {
                 .findAny()
                 .orElse(null);
 
+        if (deviceDetails == null) {
+            return null;
+        }
+
         for (DeviceType deviceType: DeviceType.values()) {
             if (deviceDetails.getType().equals(deviceType.getName())) {
                 return deviceType;

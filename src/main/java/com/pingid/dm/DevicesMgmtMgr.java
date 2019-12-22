@@ -22,11 +22,11 @@ public enum DevicesMgmtMgr {
 
     public void authenticate(
             String userName,
+            DeviceType deviceType,
             String deviceId,
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
 
-        DeviceType deviceType = DeviceType.getDeviceType(userName, deviceId);
         if (deviceType != null) {
             deviceType.getiAuthMethod().authenticate(userName, deviceId, request, response);
         }

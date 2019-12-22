@@ -61,6 +61,10 @@ $(document).ready(function() {
         posting.done(function( data ) {
             $( "#redirect" ).html(data);
             $( "#redirectForm" ).submit();
+        })
+        .fail(function( error ) {
+            $("#authErrMsg p").html(error.responseText);
+            $("#authErrMsg").show();
         });
     });
 

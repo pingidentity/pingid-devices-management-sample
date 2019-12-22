@@ -2,6 +2,7 @@ package com.pingid.dm.resource;
 
 import com.pingid.api.resource.GetUserDetailsResource;
 import com.pingid.dm.DevicesMgmtMgr;
+import com.pingid.dm.auth.method.DeviceType;
 import com.pingid.dm.config.Config;
 import com.pingid.dm.config.Constants;
 import com.pingid.dm.crypto.CryptoUtil;
@@ -28,8 +29,15 @@ public class AuthResource {
             @FormParam("deviceId") String deviceId) throws Exception {
 
         String userName = (String) request.getSession().getAttribute(Constants.SessionAttribute.USER_NAME);
+        DeviceType deviceType = DeviceType.getDeviceType(userName, deviceId);
+        if (deviceType == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Invalid device id.");
+            response.flushBuffer();
+            return;
+        }
         request.getSession().setAttribute("deviceId", deviceId);
-        DevicesMgmtMgr.INSTANCE.authenticate(userName, deviceId, request, response);
+        DevicesMgmtMgr.INSTANCE.authenticate(userName, deviceType, deviceId, request, response);
     }
 
     @POST
