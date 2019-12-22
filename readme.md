@@ -23,17 +23,17 @@ Libraries & Dependencies:
  
 1. Install the latest Maven (https://maven.apache.org/).
 2. Download organization properties file. (can be download from the Admin Web-Portal -> Setup -> PingID -> Client Integration).
-3. Go to resources/properties folder and update the properties values with the values of your organization properties file. 
-4. Open a command line and from {your_location}/pingid-devices-mgmt-sample/ execute:
+3. Go to resources/properties folder and update the config.properties values with the values of your organization properties file. 
+4. Open a command line and from {your_location}/pingid-devices-management-sample/ execute:
 ```
 mvn clean package
 ```
-5. Copy target\pingid-devices-mgmt-sample.war to a Java web application server (i.e. Tomcat).
+5. Copy target\pingid-devices-management-sample.war to a Java web application server (i.e. Tomcat).
 
 
 ### Usage
 
-1. Launch the application (i.e. https://localhost:8080/pingid-devices-mgmt-sample).
+1. Launch the application (i.e. https://localhost:8080/pingid-devices-management-sample).
 2. Login with user name.
 3. Add, remove and authenticate operations are available to manage the user's devices. 
 
