@@ -1,0 +1,36 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <filter>
+    <filter-name>SessionValidationFilter</filter-name>
+    <filter-class>com.pingid.dm.resource.filter.SessionValidationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SessionValidationFilter</filter-name>
+    <url-pattern>/pingid/* </url-pattern>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>com.pingid.dm.config.Config</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>PingID Device Management Service</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value>com.pingid.dm.resource;com.pingid.api.resource</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PingID Device Management Service</servlet-name>
+    <url-pattern>/pingid/* </url-pattern>
+  </servlet-mapping>
+
+</web-app>
