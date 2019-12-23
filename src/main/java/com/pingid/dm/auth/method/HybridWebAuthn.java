@@ -49,7 +49,7 @@ public abstract class HybridWebAuthn implements IAuthMethod {
         String signedPpmRequestJson = CryptoUtil.signJWT(ppmRequest.toJson(), orgUuid, orgToken, orgKey);
 
         URI authUri = new URI(config.getProperty(Constants.PropFileParam.AUTHENTICATOR_URL));
-        String regUrl = authUri.getScheme() + "://" + authUri.getHost() + "/registration/webauthn";
+        String regUrl = authUri.getScheme() + "://" + authUri.getHost() + Constants.Url.HYBRID_WEBAUTHN_REG;
         request.setAttribute(Constants.RequestParameter.DEST_URL, regUrl);
         request.setAttribute(Constants.RequestParameter.ORG_UUID, orgUuid);
         request.setAttribute(Constants.RequestParameter.PPM_REQUEST, signedPpmRequestJson);
@@ -87,10 +87,12 @@ public abstract class HybridWebAuthn implements IAuthMethod {
                 "",
                 attributes);
 
+        request.getSession().setAttribute(Constants.SessionAttribute.NONCE, ppmRequest.getNonce());
+
         String signedPpmRequestJson = CryptoUtil.signJWT(ppmRequest.toJson(), orgUuid, orgToken, orgKey);
 
         URI authUri = new URI(config.getProperty(Constants.PropFileParam.AUTHENTICATOR_URL));
-        String regUrl = authUri.getScheme() + "://" + authUri.getHost() + "/pingid/ppm/hybrid/webauthn/auth";
+        String regUrl = authUri.getScheme() + "://" + authUri.getHost() + Constants.Url.HYBRID_WEBAUTHN_AUTH;
         request.setAttribute(Constants.RequestParameter.DEST_URL, regUrl);
         request.setAttribute(Constants.RequestParameter.ORG_UUID, orgUuid);
         request.setAttribute(Constants.RequestParameter.PPM_REQUEST, signedPpmRequestJson);

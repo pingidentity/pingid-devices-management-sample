@@ -8,6 +8,11 @@ public class Constants {
         public static final String DEVICES_MGMT = "DEVICES_MGMT";
     }
 
+    public static class Url {
+        public static final String HYBRID_WEBAUTHN_REG = "/registration/webauthn";
+        public static final String HYBRID_WEBAUTHN_AUTH = "/pingid/ppm/hybrid/webauthn/auth";
+    }
+
     public static class RegistrationParam {
 
         public static final String AUD = "md";
@@ -51,5 +56,6 @@ public class Constants {
     public static class SessionAttribute {
 
         public static final String USER_NAME = "userName";
+        public static final String NONCE = "nonce";
     }
 }

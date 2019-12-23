@@ -30,7 +30,7 @@ public class RegResource {
 
         String userName = (String) request.getSession().getAttribute(Constants.SessionAttribute.USER_NAME);
 
-        DeviceType type = null;
+        DeviceType type;
         try {
             type = DeviceType.valueOf(deviceType);
         } catch (IllegalArgumentException e) {
@@ -60,6 +60,7 @@ public class RegResource {
         PPMResponse ppmRes = PPMResponse.fromJson(payload);
 
         if (ppmRes.getStatus().equalsIgnoreCase("failure")) {
+
             if (ppmRes.getMessage() == null) {
                 request.setAttribute("errorMsg", "Operation was canceled.");
             }
@@ -67,6 +68,7 @@ public class RegResource {
                 request.setAttribute("errorMsg", ppmRes.getMessage());
             }
         }
+
         request.setAttribute(Constants.RequestParameter.SENDER, Constants.Common.DEVICES_MGMT);
         new GetUserDetailsResource().getUserDetails(request, response, ppmRes.getSub());
     }

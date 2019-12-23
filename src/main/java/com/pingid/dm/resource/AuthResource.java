@@ -7,6 +7,7 @@ import com.pingid.dm.config.Config;
 import com.pingid.dm.config.Constants;
 import com.pingid.dm.crypto.CryptoUtil;
 import com.pingid.dm.ppm.PPMResponse;
+import com.pingid.dm.ppm.PpmUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,8 +60,16 @@ public class AuthResource {
         request.setAttribute(Constants.RequestParameter.SENDER, Constants.Common.DEVICES_MGMT);
 
         if (ppmRes.getStatus().equalsIgnoreCase("success")) {
-            request.setAttribute("deviceId", request.getSession().getAttribute("deviceId"));
-            request.setAttribute("authResult", ppmRes.getStatus());
+
+            String nonce = (String)request.getSession().getAttribute(Constants.SessionAttribute.NONCE);
+            String errMsg = PpmUtil.validatePpmResponse(ppmRes, nonce);
+            if ( errMsg != null ) {
+                request.setAttribute("authErrMsg", errMsg);
+            }
+            else {
+                request.setAttribute("deviceId", request.getSession().getAttribute("deviceId"));
+                request.setAttribute("authResult", ppmRes.getStatus());
+            }
         }
         else {
             request.setAttribute("authErrMsg", ppmRes.getMessage());

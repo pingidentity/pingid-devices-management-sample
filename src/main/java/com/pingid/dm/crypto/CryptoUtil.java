@@ -20,20 +20,20 @@ public class CryptoUtil {
     public static final String SUN_PROVIDER = "SUN";
     public static final String SUN_RANDOM_ALG = "SHA1PRNG";
 
+    private CryptoUtil(){}
+
     /**
-     * generates a unique request id for nonce field
+     * generates a unique request id for nonce field.
      *
      * @return unique random request id with several constraints.
      */
     public static String generateRequestId() {
 
-        Random random = null;
+        Random random;
 
         try {
             random = SecureRandom.getInstance(SUN_RANDOM_ALG, SUN_PROVIDER);
-        } catch (NoSuchAlgorithmException e) {
-            random = new SecureRandom();
-        } catch (NoSuchProviderException e) {
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
             random = new SecureRandom();
         }
 
@@ -50,9 +50,11 @@ public class CryptoUtil {
     /**
      * creates a signed jwt token which contains the payload.
      * @param payload the payload in json format.
-     * @param key the signing key for the jwt verification.
-     * @return a signed jwt token
-     * @throws JoseException
+     * @param orgAlias the organization alias.
+     * @param orgToken the organization token.
+     * @param key the signing key.
+     * @return a signed jwt token.
+     * @throws JoseException when failing to sign.
      */
     public static String signJWT(
             final String payload,
@@ -79,7 +81,7 @@ public class CryptoUtil {
         jws.setHeader("org_alias", orgAlias);
         jws.setHeader("token", orgToken);
 
-        String alg = null;
+        String alg;
         int keySize = signingWebKey.getOctetSequence().length;
 
         if (keySize == 32) {
@@ -93,17 +95,15 @@ public class CryptoUtil {
         }
 
         jws.setAlgorithmHeaderValue(alg);
-        String signedJwtToken = jws.getCompactSerialization();
-
-        return signedJwtToken;
+        return jws.getCompactSerialization();
     }
 
     /**
      * Extract the token from the jwt and verify it against the secret.
-     * @param key
-     * @param jws
-     * @return the payload
-     * @throws JoseException
+     * @param key the signing key.
+     * @param jws the signed payload.
+     * @return the payload.
+     * @throws JoseException when failing to verify.
      */
     public static String verifyJwt(final String key, final String jws) throws JoseException
     {
