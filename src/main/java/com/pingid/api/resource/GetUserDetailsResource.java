@@ -9,7 +9,6 @@ import com.pingid.api.RequestHeader;
 import com.pingid.api.getuserdetails.GetUserDetailsRequset;
 import com.pingid.api.getuserdetails.GetUserResponse;
 import com.pingid.dm.auth.method.DeviceType;
-import com.pingid.dm.auth.method.HybridWebAuthnPlatform;
 import com.pingid.dm.config.Config;
 import com.pingid.dm.config.Constants;
 import com.pingid.dm.ppm.cache.DevicesMgmtCache;
@@ -22,7 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,6 +90,10 @@ public class GetUserDetailsResource extends ApiResource<GetUserResponse> {
     }
 
     private List<DeviceDetails> filter(List<DeviceDetails> deviceDetails) {
+
+        if (deviceDetails == null) {
+            return Collections.emptyList();
+        }
 
         List<String> deviceTypes = EnumSet.allOf(DeviceType.class)
                 .stream()
