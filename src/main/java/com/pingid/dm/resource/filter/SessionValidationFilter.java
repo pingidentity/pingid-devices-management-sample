@@ -23,10 +23,22 @@ public class SessionValidationFilter implements Filter {
         HttpSession session = req.getSession(false);
 
         if(session == null || req.getMethod().equals(HttpMethod.GET)) {
+
+            if (req.getHeader("x-requested-with") != null) {
+                res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                res.getWriter().write("Invalid session.");
+                res.flushBuffer();
+                return;
+            }
+
             res.sendRedirect(req.getContextPath());
-            return;
         }
         else {
+            String referer = req.getHeader("referer");
+            if (referer != null && referer.endsWith("/pingid-devices-management-sample/")) {
+                session.invalidate();
+            }
+
             // pass the request along the filter chain
             filterChain.doFilter(servletRequest, servletResponse);
         }
