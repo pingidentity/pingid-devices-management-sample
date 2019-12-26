@@ -1,51 +1,53 @@
-#pingid-devices-management-sample
+# pingid-devices-management-sample
 
-### Overview
+## Overview
 
-PingID's devices management is a sample java web application that demonstrates simple implementation operations on device type, such as add, remove and authenticate.
-This sample application can help a developer to understand the PingID registration and authentication flow, using PPM Request/Response.
+PingID's devices management application is a java web application example that demonstrates simple implementation operations such as add, remove and authenticate, on a device type.
+This example can help a developer understand the PingID registration and authentication flow, using PPM Request/Response.
 
-note: This version supports only (Hybrid FIDO2 UI with pingone domain) FIDO2 devices types such as Security key and FIDO2 Biometrics.
+**Note**: This version only supports FIDO pairing and authentication with a hybrid UI, using FIDO2 security key and FIDO2 biometrics device types.
 
-### System Requirements / Dependencies
+## System requirements and dependencies
 
-Requires:
- - PingOne account with PingID service enabled.
+### Prerequisites
+
+ - A PingOne organization admin account, with the PingID service enabled.
  - An existing user.
+ - The latest version of Maven (https://maven.apache.org/).
 
-Libraries & Dependencies:
+
+### Libraries and dependencies
+
  - jersey-client (https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client)
  - jose4j (https://mvnrepository.com/artifact/org.bitbucket.b_c/jose4j)
  - gson (https://mvnrepository.com/artifact/com.google.code.gson/gson)
 
  
-### Installation
+## Installation
  
-1. Install the latest Maven (https://maven.apache.org/).
-2. Download organization properties file. (can be download from the Admin Web-Portal -> Setup -> PingID -> Client Integration).
-3. Go to resources/properties folder and update the config.properties values with the values of your organization properties file. 
-4. Open a command line and from {your_location}/pingid-devices-management-sample/ execute:
+1. Download the **pingid-devices-management-sample** package.
+2. Download your organization's PingID properties file (**Admin Web-Portal** -> **Setup** -> **PingID** -> **Client Integration**). See [Download the PingID properties file
+](https://docs.pingidentity.com/bundle/pingid/page/pog1564020448702.html) in the PingID Aministration Guide.
+3. In the `pingid-devices-management-sample/src/main/resources/properties` folder, update the `config.properties` file with the values from your organization properties file. 
+4. In the `pingid-devices-management-sample/` folder, run the package build on the command line:
 ```
 mvn clean package
 ```
-5. Copy target\pingid-devices-management-sample.war to a Java web application server (i.e. Tomcat).
+5. Copy `pingid-devices-management-sample/target/pingid-devices-management-sample.war` to a Java web application server (for example, Tomcat).
 
 
-### Usage
+## Usage
 
-1. Launch the application (i.e. http://localhost:8080/pingid-devices-management-sample).
-2. Login with user name.
-3. Add, remove and authenticate operations are available to manage the user's devices. 
+1. Launch the **pingid-devices-management-sample** application (for example, http://localhost:8080/pingid-devices-management-sample).
+2. Login using the username of the user account.
+3. Manage the user's devices with the application's `add`, `remove` and `authenticate` operations. 
 
 
-### Disclaimer
+## Disclaimer
 
 This software is open sourced by Ping Identity but not supported commercially as such. Any questions/issues should go to the Github issues tracker or discuss on the [Ping Identity developer communities] . See also the DISCLAIMER file in this directory.
 
 [Ping Identity developer communities]: https://community.pingidentity.com/collaborate
 [Ping Identity Developer Site]: https://developer.pingidentity.com/connect
-
-
-
 
 
